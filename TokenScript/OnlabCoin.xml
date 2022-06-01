@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE token  [
+        <!ENTITY style SYSTEM "shared.css">
+        <!ENTITY view.en SYSTEM "view.en.js">
+        <!ENTITY item-view.en SYSTEM "item-view.en.js">
+        <!ENTITY about.en SYSTEM "about.en.js">
+        <!ENTITY approve.en SYSTEM "approve.en.js">
+        <!ENTITY addVIP.en SYSTEM "addVIP.en.js">
+        <!ENTITY removeVIP.en SYSTEM "removeVIP.en.js">
+        <!ENTITY viewVIPs.en SYSTEM "viewVIPs.en.js">
+        <!ENTITY icon.en SYSTEM "icon.en.shtml">
+        ]>
+
+<ts:token
+    xmlns:ts="http://tokenscript.org/2020/06/tokenscript"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace" xsi:schemaLocation="http://tokenscript.org/2020/06/tokenscript http://tokenscript.org/2020/06/tokenscript.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:asnx="urn:ietf:params:xml:ns:asnx"
+    xmlns:ethereum="urn:ethereum:constantinople" custodian="false">
+    <asnx:module name="OnlabCoin-event-OwnershipTransferred">
+        <namedType name="OwnershipTransferred">
+            <type>
+                <sequence>
+                    <element name="previousOwner" ethereum:type="address" ethereum:indexed="true"></element>
+                    <element name="newOwner" ethereum:type="address" ethereum:indexed="true"></element>
+                </sequence>
+            </type>
+        </namedType>
+    </asnx:module>
+    <ts:label>
+        <ts:string xml:lang="en">OnlabCoin</ts:string>
+    </ts:label>
+    <ts:contract interface="erc20" name="OnlabCoin">
+        <ts:address network="3">0xf43809cB578b10982Cf09b83d231D522eED40593</ts:address>
+    </ts:contract>
+    <ts:origins>
+        <!-- Define the contract which holds the token that the user will use -->
+        <ts:ethereum contract="OnlabCoin"/>
+        <!-- as above ts:contract name -->
+    </ts:origins>
+
+    <ts:cards>
+
+        <ts:card type="token" name="main">
+            <ts:item-view xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+                <style type="text/css">&style;</style>
+                <script type="text/javascript">&item-view.en;</script>
+            </ts:item-view>
+            <ts:view xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+                <style type="text/css">&style;</style>
+                <script type="text/javascript">&view.en;</script>
+            </ts:view>
+        </ts:card>
+
+        <ts:card type="action" name="about">
+            <ts:label>
+                <ts:string xml:lang="en">About</ts:string>
+            </ts:label>
+            <ts:view
+                xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+                <style type="text/css">&style;</style>
+                <script type="text/javascript">&about.en;</script>
+            </ts:view>
+        </ts:card>
+
+        <ts:card type="action" name="approve">
+            <ts:label>
+                <ts:string xml:lang="en">Approve</ts:string>
+            </ts:label>
+            <ts:attribute name="approvalAddress">
+                <ts:type>
+                    <ts:syntax>1.3.6.1.4.1.1466.115.121.1.36</ts:syntax>
+                </ts:type>
+                <ts:label>
+                    <ts:string xml:lang="en">Approval Address</ts:string>
+                </ts:label>
+                <ts:origins>
+                    <ts:user-entry as="address"/>
+                </ts:origins>
+            </ts:attribute>
+            <ts:transaction>
+                <ethereum:transaction function="approve" contract="OnlabCoin" as="uint">
+                    <ts:data>
+                        <ts:address ref="approvalAddress"/>
+                        <ts:uint256>115792089237316195423570985008687907853269984665640564039457584007913129639935</ts:uint256>
+                    </ts:data>
+                </ethereum:transaction>
+            </ts:transaction>
+            <ts:view
+                xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+                <style type="text/css">&style;</style>
+                <script type="text/javascript">&approve.en;</script>
+            </ts:view>
+        </ts:card>
+
+        <ts:card type="action" name="addVIP">
+            <ts:label>
+                <ts:string xml:lang="en">Add VIP</ts:string>
+            </ts:label>
+            <ts:attribute name="vipAddress">
+                <ts:type>
+                    <ts:syntax>1.3.6.1.4.1.1466.115.121.1.36</ts:syntax>
+                </ts:type>
+                <ts:label>
+                    <ts:string xml:lang="en">VIP Address</ts:string>
+                </ts:label>
+                <ts:origins>
+                    <ts:user-entry as="address"/>
+                </ts:origins>
+            </ts:attribute>
+            <ts:transaction>
+                <ethereum:transaction function="addVIP" contract="OnlabCoin" as="uint">
+                    <ts:data>
+                        <ts:address ref="vipAddress"/>
+                        <ts:uint256>115792089237316195423570985008687907853269984665640564039457584007913129639935</ts:uint256>
+                    </ts:data>
+                </ethereum:transaction>
+            </ts:transaction>
+            <ts:view
+                xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+                <style type="text/css">&style;</style>
+                <script type="text/javascript">&addVIP.en;</script>
+            </ts:view>
+        </ts:card>
+
+        <ts:card type="action" name="removeVIP">
+            <ts:label>
+                <ts:string xml:lang="en">Remove VIP</ts:string>
+            </ts:label>
+            <ts:attribute name="vipAddress">
+                <ts:type>
+                    <ts:syntax>1.3.6.1.4.1.1466.115.121.1.36</ts:syntax>
+                </ts:type>
+                <ts:label>
+                    <ts:string xml:lang="en">VIP Address</ts:string>
+                </ts:label>
+                <ts:origins>
+                    <ts:user-entry as="address"/>
+                </ts:origins>
+            </ts:attribute>
+            <ts:transaction>
+                <ethereum:transaction function="removeVIP" contract="OnlabCoin" as="uint">
+                    <ts:data>
+                        <ts:address ref="vipAddress"/>
+                        <ts:uint256>115792089237316195423570985008687907853269984665640564039457584007913129639935</ts:uint256>
+                    </ts:data>
+                </ethereum:transaction>
+            </ts:transaction>
+            <ts:view
+                xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+                <style type="text/css">&style;</style>
+                <script type="text/javascript">&removeVIP.en;</script>
+            </ts:view>
+
+        </ts:card>
+                <ts:card type="action" name="viewVIPs">
+            <ts:label>
+                <ts:string xml:lang="en">View VIPs</ts:string>
+            </ts:label>
+            <ts:attribute name="vipAddresses">
+                <ts:type>
+                    <ts:syntax>1.3.6.1.4.1.1466.115.121.1.36</ts:syntax>
+                </ts:type>
+                <ts:label>
+                    <ts:string xml:lang="en">View VIPs</ts:string>
+                </ts:label>
+                <ts:origins>
+                    <ethereum:call function="getVIPs" contract="OnlabCoin" as="address">
+                    <ts:data>
+                        <ts:address ref="VIPs"/>
+                    </ts:data>
+                </ethereum:call>
+                </ts:origins>
+            </ts:attribute>
+            <ts:view
+                xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+                <style type="text/css">&style;</style>
+                <script type="text/javascript">&viewVIPs.en;</script>
+            </ts:view>
+        </ts:card>
+    </ts:cards>
+
+    <ts:attribute name="owner">
+        <ts:type>
+            <ts:syntax>1.3.6.1.4.1.1466.115.121.1.15</ts:syntax>
+        </ts:type>
+        <ts:label>
+            <ts:string xml:lang="en">owner</ts:string>
+        </ts:label>
+        <ts:origins>
+            <ethereum:call function="owner" contract="OnlabCoin" as="address"></ethereum:call>
+        </ts:origins>
+    </ts:attribute>
+</ts:token>
